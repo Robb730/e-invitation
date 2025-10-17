@@ -1,14 +1,16 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HeroSection from './components/HeroSection';
-import Countdown from './components/Countdown';
-import Reminders from './components/Reminders';
-import Eighteens from './components/Eighteens';
-import RSVP from './components/RSVP';
-import Admin from './components/Admin';
-import AdminLogin from './components/AdminLogin';
-import ProtectedRoute from './components/ProtectedRoute';
-import { useState, useEffect } from 'react';
+import HeroSection from "./components/HeroSection";
+import Countdown from "./components/Countdown";
+import Reminders from "./components/Reminders";
+import Eighteens from "./components/Eighteens";
+import RSVP from "./components/RSVP";
+import Admin from "./components/Admin";
+import AdminLogin from "./components/AdminLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
+import GuestGate from "./components/GuestGate";
+import GuestProtectedRoute from "./components/GuestProtectedRoute";
+import { useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
@@ -18,15 +20,10 @@ function App() {
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
+      setIsAuthenticated(!!user);
       setLoading(false);
     });
-
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
 
   if (loading) {
@@ -37,20 +34,26 @@ function App() {
     <Router>
       <div className="w-full min-h-screen text-white scroll-smooth">
         <Routes>
+          {/* 🎟 Guest Gate (name verification) */}
+          <Route path="/guest-gate" element={<GuestGate />} />
+
+          {/* 🎉 Invitation (protected by GuestGate) */}
           <Route
             path="/"
             element={
-              <>
-                <HeroSection />
-                <Countdown />
-                <Reminders />
-                <Eighteens />
-                <RSVP />
-              </>
+              <GuestProtectedRoute>
+                <>
+                  <HeroSection />
+                  <Countdown />
+                  <Reminders />
+                  <Eighteens />
+                  <RSVP />
+                </>
+              </GuestProtectedRoute>
             }
           />
 
-          {/* 🔐 Admin login page */}
+          {/* 🔐 Admin login */}
           <Route
             path="/admin-login"
             element={<AdminLogin setIsAuthenticated={setIsAuthenticated} />}
