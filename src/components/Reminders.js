@@ -15,7 +15,7 @@ const Reminders = () => {
           Venue: 8 Waves | Mt. Carmel Hall
         </li>
         <li className="bg-white/70 p-3 rounded-lg shadow italic">
-          Gifts are optional — the goddess prefers cash hihi 💖
+          Gifts are gladly appreciated!
         </li>
       </ul>
     </section>

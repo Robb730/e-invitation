@@ -21,21 +21,28 @@ const Countdown = () => {
 
   return (
     <section className="py-12 bg-gradient-to-b from-[#EDDADA] to-[#CB8587] text-[#8E8B63] text-center">
-      <h2 className="text-3xl font-semibold mb-6 font-great">Countdown to the Big Day</h2>
-      <div className="flex justify-center space-x-6 text-xl">
+      <h2 className="text-3xl font-semibold mb-6 font-great">
+        Countdown to the Big Day
+      </h2>
+
+      <div className="flex justify-center space-x-3 sm:space-x-6 px-4 text-lg sm:text-xl">
         {["days", "hours", "minutes", "seconds"].map((unit) => (
           <div
             key={unit}
-            className="bg-white/70 rounded-xl p-4 shadow-md min-w-[80px]"
+            className="bg-white/70 rounded-lg p-3 sm:p-4 shadow-md w-[70px] sm:w-[110px] flex flex-col items-center"
           >
-            <span className="block text-4xl font-bold text-[#CB8587]">
+            <span className="block text-2xl sm:text-4xl font-bold text-[#CB8587]">
               {timeLeft[unit] ?? 0}
             </span>
-            <span className="uppercase text-sm tracking-wider">{unit}</span>
+            <span className="uppercase text-xs sm:text-sm tracking-wider">
+              {unit}
+            </span>
           </div>
         ))}
       </div>
     </section>
+
+
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Play, Pause } from 'lucide-react'; // npm install lucide-react
-import front from './images/PSP_5671.JPG';
+import front from './images/PSP_5666.jpg';
 import music from './music/song.mp3';
 
 function HeroSection() {
@@ -20,9 +20,9 @@ function HeroSection() {
 
   return (
     <section
-      className="h-screen bg-left-top bg-center flex flex-col justify-end items-center text-center px-4 pb-12 relative text-white"
-      style={{ backgroundImage: `url(${front})` }}
-    >
+  className="h-screen bg-cover bg-[position:40%_center] flex flex-col justify-end items-center text-center px-4 pb-12 relative text-white"
+  style={{ backgroundImage: `url(${front})` }}
+>
       {/* Background music */}
       <audio ref={audioRef} src={music} loop />
 
